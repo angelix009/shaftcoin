@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from shaftcoin/dominance.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Apr 2025 23:39:59 GMT -->
+<head>
+  <meta charset="UTF-8" />
+  <!-- Disable browser caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShaftCoin Dominance - Meme Market Cap %</title>
+  <meta name="description" content="View the current ShaftCoin Dominance level compared to the combined Solana memecoin market cap. Similarly to BTC.D, this gives a glimpse into the overall strength of ShaftCoin relative to the Solana meme ecosystem." />
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/1YfRWyy8/shaftcoinlogo.gif" />
+  <!-- Include html2canvas library -->
+  <script src="../cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="../fonts.googleapis.com/css21189.css?family=Ubuntu:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    /* Global Box Sizing Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    /* Global Styles */
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+    }
+    a:link, a:visited, a:active {
+      color: #2c6fad;
+      text-decoration: none;
+    }
+    /* --- Header Styles --- */
+    /* Top Banner */
+    .top-banner {
+      background: linear-gradient(90deg, #E77E00, #F7931A, #FFB050);
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 14px;
+    }
+    .top-banner a {
+      color: #fff;
+      text-decoration: none;
+    }
+    header {
+      background: #1e1e2d;
+      color: #fff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-container a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+    .logo-container img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .logo-container span {
+      font-size: 20px;
+      font-style: italic;
+      font-weight: bold;
+      color: #fff;
+    }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+      margin-left: auto;
+    }
+    nav {
+      position: relative;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      color: #fff;
+      padding: 10px 15px;
+      display: block;
+    }
+    nav ul li a:hover {
+      background-color: #333;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #1e1e2d;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content li a {
+      padding: 10px 15px;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .header-right {
+      font-size: 14px;
+    }
+    .header-right span {
+      margin-left: 10px;
+    }
+    .header-label {
+      color: #ccc;
+    }
+    header .header-right a {
+      color: #fff !important;
+    }
+    #ShaftCoin-d-percentage,
+    #header-ShaftCoin-d-percentage {
+      color: green;
+      font-weight: bold;
+    }
+    /* Trade Button (added) */
+    .trade-btn {
+      padding: 8px 15px;
+      font-size: 16px;
+      font-family: 'Ubuntu', sans-serif;
+      color: #fff;
+      border: 1px solid #E77E00;
+      background: linear-gradient(90deg, #E77E00, #F7931A, #FFB050);
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+    .trade-btn:hover {
+      opacity: 0.9;
+    }
+    /* Main Container and Other Styles */
+    .container {
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      margin: 20px auto;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      scroll-margin-top: 80px;
+    }
+    #ShaftCoin-heading {
+      font-size: 24px;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .dominance-title {
+      font-size: 28px;
+      margin: 10px 0;
+    }
+    p {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+    #last-updated {
+      color: grey;
+      font-size: 12px;
+    }
+    #main-ShaftCoin-d-percentage {
+      color: green;
+      font-weight: bold;
+    }
+    .definition-box, .about-box {
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 600px;
+      width: 90%;
+      border: 1px dashed #ccc;
+      border-radius: 10px;
+      background-color: #fafafa;
+      text-align: left;
+      font-size: 14px;
+      color: #666;
+    }
+    .definition-box h3, .about-box h3 {
+      margin-top: 0;
+      font-style: normal;
+    }
+    .disclaimer-box {
+      margin: 20px auto;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      font-size: 12px;
+      color: grey;
+    }
+    /* Footer */
+    footer {
+      background: #1e1e2d;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    footer .donation-address {
+      font-family: monospace;
+      margin-top: 5px;
+      color: #ccc;
+    }
+    /* Orange Button Styles */
+    .orange-btn {
+      display: inline-block;
+      padding: 8px 15px;
+      font-size: 16px;
+      font-family: 'Ubuntu', sans-serif;
+      color: #fff;
+      border: 1px solid #d57700;
+      background-color: #ee9209;
+      background-image: linear-gradient(bottom, #e28700 14%, #ee9209 70%);
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .orange-btn:hover {
+      background-color: #e28700;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+      }
+      .header-left, .header-right {
+        width: 100%;
+        text-align: left;
+      }
+      .header-right {
+        margin-top: 10px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        background-color: #1e1e2d;
+        margin-top: 10px;
+        display: none;
+        border-radius: 5px;
+      }
+      nav ul.show {
+        display: flex;
+      }
+      nav ul li {
+        width: 100%;
+        text-align: right;
+      }
+      nav ul li a {
+        color: #fff;
+        padding: 10px 15px;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: right;
+      }
+      nav ul li .dropdown-content {
+        display: none;
+        position: static;
+        background: none;
+        box-shadow: none;
+        padding-left: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      header {
+        padding: 10px;
+      }
+    }
+    header nav a {
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Banner with Scrolling Text -->
+  <div class="top-banner">
+    <a href="https://pump.fun/board?include-nsfw=true" target="_blank">
+      <marquee behavior="scroll" direction="left">
+        INTRODUCING ShaftCoin MARKET: The first memecoin to launch a trading platform, in partnership with SolSniffer and DegenFi. Trade Here. Grow ShaftCoin. Win Together. &nbsp;&nbsp;&nbsp;
+        INTRODUCING ShaftCoin MARKET: The first memecoin to launch a trading platform, in partnership with SolSniffer and DegenFi. Trade Here. Grow ShaftCoin. Win Together.
+      </marquee>
+    </a>
+  </div>
+  <!-- Navigation Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="https://i.ibb.co/1YfRWyy8/shaftcoinlogo.gif" alt="ShaftCoin Logo">
+          <span>ShaftCoin</span>
+        </a>
+      </div>
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+      <nav>
+        <ul id="nav-menu">
+          <li class="dropdown">
+            <a href="index.html">Home</a>
+            <ul class="dropdown-content">
+              <li><a href="index.html#what-is-ShaftCoin">What is ShaftCoin</a></li>
+              <li><a href="index.html#pizza">Pizza</a></li>
+              <li><a href="index.html#market">ShaftCoin Market</a></li>
+              <li><a href="index.html#getting-started">Getting Started</a></li>
+              <li><a href="index.html#memes">Memes</a></li>
+              <li><a href="index.html#cexs">CEXs</a></li>
+              <li><a href="index.html#community">Community</a></li>
+              <li><a href="index.html#news">News</a></li>
+              <li><a href="index.html#faq">FAQs</a></li>
+            </ul>
+          </li>
+          <li><a href="dominance.html">Dominance</a></li>
+          <li class="dropdown">
+            <a href="memes.html">Meme Maker</a>
+            <ul class="dropdown-content">
+              <li><a href="memes.html">Meme Maker</a></li>
+              <li><a href="laser.html">Laser Eye Maker</a></li>
+            </ul>
+          <li class="dropdown">
+            <a href="calculator.html">Calculators</a>
+            <ul class="dropdown-content">
+              <li><a href="calculator.html#price-prediction-calculator">Price Prediction Calculator</a></li>
+              <li><a href="calculator.html#marketcap-comparison-calculator">Market Cap Comparison</a></li>
+              <li><a href="calculator.html#calculator">Purchase Power Calculator</a></li>
+              <li><a href="calculator.html#dominance-calculator">Dominance Calculator</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#">Resources</a>
+            <ul class="dropdown-content">
+              <li><a href="https://pump.fun/board?include-nsfw=true" target="_blank">ShaftCoin Market</a></li>
+              <li><a href="https://www.birdeye.so/token/shaftCA?chain=solana" target="_blank">Birdeye</a></li>
+              <li><a href="https://www.coingecko.com/en/coins/ShaftCoin-2" target="_blank">CoinGecko</a></li>
+              <li><a href="https://coinmarketcap.com/currencies/shaft/" target="_blank">CoinMarketCap</a></li>
+              <li><a href="https://dexscreener.com/solana/d7k2s8tsvak4ycuh5bnayntbry1szpnzjlmhwgyvsrgh" target="_blank">DEX Screener</a></li>
+              <li><a href="https://www.dextools.io/app/en/token/ShaftCointnb" target="_blank">DEXTools</a></li>
+              <li><a href="https://www.dextools.io/app/en/token/ShaftCointnb" target="_blank">Moontok</a></li>
+              <li><a href="https://www.reddit.com/r/ShaftCoinTNB/" target="_blank">Reddit</a></li>
+              <li><a href="https://solscan.io/token/shaftCA" target="_blank">Solscan</a></li>
+              <li><a href="https://stocktwits.com/ShaftCoinTheNextBitcoin" target="_blank">Stocktwits</a></li>
+              <li><a href="https://t.me/ShaftCointnbsol" target="_blank">Telegram</a></li>
+              <li><a href="https://tiktok.com/@ShaftCointnb" target="_blank">TikTok</a></li>
+              <li><a href="https://x.com/ShaftCoinTNB" target="_blank">X</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <span>
+        <span class="header-label">ShaftCoin.D:</span>
+        <a href="dominance.html">
+          <span id="header-ShaftCoin-d-percentage">Loading...%</span>
+        </a>
+      </span>
+      <span>
+        <span class="header-label">Price:</span>
+        <a href="https://coinmarketcap.com/currencies/shaft/" target="_blank">
+          <span id="ShaftCoin-price">Loading...</span>
+        </a>
+      </span>
+      <span>
+        <span class="header-label">Market Cap:</span>
+        <a href="https://coinmarketcap.com/currencies/shaft/" target="_blank">
+          <span id="header-marketcap">Loading...</span>
+        </a>
+      </span>
+      <!-- Added Trade Button -->
+      <a href="https://pump.fun/board?include-nsfw=true" class="trade-btn" target="_blank">TRADE</a>
+    </div>
+  </header>
+
+  <!-- Main Content: Dominance Page -->
+  <main>
+    <div class="container" id="dominance-container">
+      <h2 id="ShaftCoin-heading">
+        ShaftCoin Dominance (ShaftCoin.D):
+      </h2>
+      <h3 class="dominance-title">
+        <span id="main-ShaftCoin-d-percentage">Loading...</span>%
+      </h3>
+      <!-- Moved Bitcoin Dominance above ShaftCoin Market Cap -->
+      <p><strong>ShaftCoin Market Cap:</strong> <span id="ShaftCoin-marketcap">Loading...</span></p>
+      <p><strong>Bitcoin Dominance (BTC.D):</strong> <span id="btc-d-percentage">Loading...</span>%</p>
+      <p><strong>Total Solana Memecoin Market Cap:</strong> <span id="meme-marketcap">Loading...</span></p>
+      <p id="last-updated">As of today at Loading...</p>
+      <!-- Buttons container -->
+      <p id="dominance-buttons">
+        <button id="tweet-btn" class="orange-btn">Share on X</button>
+        <button id="download-dominance-btn" class="orange-btn" onclick="downloadDominanceImage()" disabled>Save as Image</button>
+      </p>
+    </div>
+
+    <!-- Definition Section -->
+    <div class="definition-box">
+      <h3>What is Market Cap ShaftCoin Dominance?</h3>
+      <p>
+        Market Cap ShaftCoin Dominance (%) is the ratio of ShaftCoin’s market capitalization to the total Solana memecoin market cap. It provides insight into ShaftCoin’s relative size within the Solana meme cryptocurrency ecosystem.
+      </p>
+      <p>
+        In a manner similar to Bitcoin Dominance (BTC.D), this metric offers a way to gauge the influence of ShaftCoin among Solana memecoins.
+      </p>
+    </div>
+
+    <!-- About ShaftCoin Section -->
+    <div class="about-box" id="what-is-ShaftCoin">
+      <h3>What is ShaftCoin?</h3>
+      <p>
+        The idea of ShaftCoin emerged in 2013 and was inspired by a <a href="https://www.youtube.com/watch?v=uh-zxexGSA4" target="_blank">4:20‑minute YouTube video titled "The Next Bitcoin?"</a> by James D. McMurray two days after the launch of Dogecoin. In the video, ShaftCoin was suggested as a joke to be a simpler, more approachable alternative to Bitcoin.
+      </p>
+      <p>
+        It wasn't until April 13, 2025 that the ShaftCoin vision became a reality on Pump.Fun. The token was launched with a total supply of 1,000,000,000 ShaftCoin. It is fully community‑owned with no central authority—much like Bitcoin and Dogecoin.
+      </p>
+      <p>
+        The logo for ShaftCoin is the Bitcoin logo turned 90 degrees to look like dick, and the name ShaftCoin sounds like Bitcoin.
+      </p>
+    </div>
+
+    <!-- Contract / Info Section -->
+    <div class="about-box">
+      <p>
+        <strong>ShaftCoin Price:</strong>
+        <span id="contract-ShaftCoin-price">Loading...</span>
+      </p>
+      <p>
+        <strong>Contract Address:</strong>
+        <span id="contract-address">shaftCA</span>
+        <button id="copy-btn" class="orange-btn">Copy</button>
+      </p>
+      <p>
+        <strong>Network:</strong>
+        <img src="../cryptologos.cc/logos/solana-sol-logoe616.html?v=014" alt="Solana Logo" style="width:16px; vertical-align:middle; margin-right:5px;"> Solana
+      </p>
+    </div>
+
+    <!-- Disclaimer Section -->
+    <div class="disclaimer-box">
+      <p>
+        This page is made by the community purely for entertainment and for fun. Contributions to ShaftCoin are welcome from anyone. The information on this page is not investment or financial advice. It is purely for entertainment. Memecoins have no inherent financial value. All information on this page is provided "as is" without any warranty, express or implied. Always do your own research before making any investment decisions. Data sources: Trading View, CoinGecko, Dexscreener.
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div style="margin-bottom: 10px;">
+      Support ShaftCoin
+    </div>
+    <div class="donation-address">
+      Donation Address: EZmot9JJVX5mBiPFLitG6BBtjzk5WsutZbGASrhPmc4H
+    </div>
+    <p>© 2025 ShaftCoin - The Next Bitcoin. Made with love by members of the ShaftCoin community.</p>
+  </footer>
+
+  <script>
+    // Global variables for data
+    let memeMarketCap = null;
+    let globalShaftCoinPrice = 0;
+    let globalShaftCoinMC = 0;
+    let globalBTCDominance = 0;
+    
+    // Fetch ShaftCoin data from the dexscreener endpoint
+    async function fetchShaftCoinData() {
+      try {
+        const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/d7k2s8tsvak4ycuh5bnayntbry1szpnzjlmhwgyvsrgh', { cache: 'no-cache' });
+        if (!response.ok) throw new Error('Failed to fetch ShaftCoin data');
+        const data = await response.json();
+        if (data.pairs && data.pairs.length > 0) {
+          const pair = data.pairs[0];
+          globalShaftCoinPrice = parseFloat(pair.priceUsd);
+          globalShaftCoinMC = pair.fdv ? parseFloat(pair.fdv) : 0;
+          
+          if(document.getElementById('ShaftCoin-price')){
+            document.getElementById('ShaftCoin-price').innerText = `$${globalShaftCoinPrice.toFixed(4)}`;
+          }
+          if(document.getElementById('contract-ShaftCoin-price')){
+            document.getElementById('contract-ShaftCoin-price').innerText = `$${globalShaftCoinPrice.toFixed(4)}`;
+          }
+          if(document.getElementById('header-marketcap')){
+            document.getElementById('header-marketcap').innerText = `$${(globalShaftCoinMC/1e6).toFixed(2)}M`;
+          }
+          if(document.getElementById('ShaftCoin-marketcap')){
+            document.getElementById('ShaftCoin-marketcap').innerText = `$${(globalShaftCoinMC/1e6).toFixed(2)}M`;
+          }
+          
+          if (globalShaftCoinMC) {
+            if (memeMarketCap) {
+              const percentage = (globalShaftCoinMC / memeMarketCap * 100).toFixed(3);
+              if(document.getElementById('main-ShaftCoin-d-percentage')){
+                document.getElementById('main-ShaftCoin-d-percentage').innerText = percentage;
+              }
+              if(document.getElementById('ShaftCoin-d-percentage')){
+                document.getElementById('ShaftCoin-d-percentage').innerText = percentage + '%';
+              }
+              if(document.getElementById('header-ShaftCoin-d-percentage')){
+                document.getElementById('header-ShaftCoin-d-percentage').innerText = percentage + '%';
+              }
+            } else {
+              if(document.getElementById('main-ShaftCoin-d-percentage')){
+                document.getElementById('main-ShaftCoin-d-percentage').innerText = "N/A";
+              }
+              if(document.getElementById('ShaftCoin-d-percentage')){
+                document.getElementById('ShaftCoin-d-percentage').innerText = "N/A";
+              }
+              if(document.getElementById('header-ShaftCoin-d-percentage')){
+                document.getElementById('header-ShaftCoin-d-percentage').innerText = "N/A";
+              }
+            }
+          } else {
+            if(document.getElementById('ShaftCoin-marketcap')){
+              document.getElementById('ShaftCoin-marketcap').innerText = 'N/A';
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching ShaftCoin data:', error);
+      }
+    }
+    
+    // Fetch meme market cap from CoinGecko
+    async function fetchMemeMarketCap() {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/categories/solana-meme-coins', { cache: 'no-cache' });
+        if (!response.ok) throw new Error('Failed to fetch meme market cap: ' + response.status);
+        const data = await response.json();
+        const memeCategory = Array.isArray(data) ? data[0] : data;
+        if (memeCategory && memeCategory.market_cap) {
+          memeMarketCap = parseFloat(memeCategory.market_cap);
+          if(document.getElementById('meme-marketcap')){
+            document.getElementById('meme-marketcap').innerText = `$${(memeMarketCap/1e9).toFixed(2)}B`;
+          }
+        } else {
+          console.error('Meme market cap not found in response:', data);
+          if(document.getElementById('meme-marketcap')){
+            document.getElementById('meme-marketcap').innerText = 'N/A';
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching memecoin market cap:', error);
+      }
+    }
+    
+    // Fetch BTC dominance from CoinGecko global data
+    async function fetchBTCDominance() {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/global', { cache: 'no-cache' });
+        if (!response.ok) throw new Error('Failed to fetch global data');
+        const globalData = await response.json();
+        globalBTCDominance = globalData.data.market_cap_percentage.btc;
+        if(document.getElementById('btc-d-percentage')){
+          document.getElementById('btc-d-percentage').innerText = globalBTCDominance.toFixed(2);
+        }
+      } catch (error) {
+        console.error('Error fetching BTC Dominance:', error);
+        if(document.getElementById('btc-d-percentage')){
+          document.getElementById('btc-d-percentage').innerText = 'N/A';
+        }
+      }
+    }
+    
+    // Update time using GMT
+    function updateTime() {
+      const now = new Date();
+      const timeGMT = now.toLocaleTimeString('en-US', { timeZone: 'UTC', hour12: true });
+      if(document.getElementById('last-updated')){
+        document.getElementById('last-updated').innerText = `As of today at ${timeGMT} GMT`;
+      }
+    }
+    
+    async function fetchData() {
+      try {
+        await fetchMemeMarketCap();
+        await fetchShaftCoinData();
+        await fetchBTCDominance();
+        updateTime();
+        // Enable the Save as Image button for the Dominance section once data is loaded
+        document.getElementById('download-dominance-btn').disabled = false;
+      } catch (error) {
+        console.error('Error in fetchData:', error);
+      }
+    }
+    
+    fetchData();
+    setInterval(fetchData, 600000);
+    
+    // Tweet button: Build the tweet text using live numbers from the page.
+    document.getElementById('tweet-btn').addEventListener('click', function() {
+      const lastUpdatedElem = document.getElementById('last-updated');
+      const lastUpdated = lastUpdatedElem ? lastUpdatedElem.innerText.replace("As of today at ", "") : "Time unknown";
+      const ShaftCoinDominanceElem = document.getElementById('main-ShaftCoin-d-percentage');
+      const ShaftCoinDominance = ShaftCoinDominanceElem ? ShaftCoinDominanceElem.innerText : "N/A";
+      const btcDominanceElem = document.getElementById('btc-d-percentage');
+      const btcDominance = btcDominanceElem ? btcDominanceElem.innerText : "N/A";
+      const tweetText = `🟠ShaftCoin.D Update (as of ${lastUpdated})
+      
+ShaftCoin Dominance: ${ShaftCoinDominance}%
+Bitcoin Dominance: ${btcDominance}%
+
+See the latest ShaftCoin.D at https://shaftcoin/dominance.html
+
+#ShaftCoin #Bitcoin`;
+      const fallbackUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText);
+      window.open(fallbackUrl, '_blank');
+    });
+    
+    // Copy button functionality
+    document.getElementById('copy-btn').addEventListener('click', function() {
+      const contractAddress = document.getElementById('contract-address').innerText;
+      navigator.clipboard.writeText(contractAddress)
+        .then(() => {
+          alert('Contract address copied to clipboard!');
+        })
+        .catch(err => {
+          alert('Failed to copy contract address: ' + err);
+        });
+    });
+    
+    // Function to download the Dominance container as an image
+    function downloadDominanceImage() {
+      const container = document.getElementById('dominance-container');
+      
+      // Temporarily hide the buttons so they don't appear in the saved image
+      const buttonsContainer = document.getElementById('dominance-buttons');
+      const originalButtonsDisplay = buttonsContainer.style.display;
+      buttonsContainer.style.display = 'none';
+      
+      html2canvas(container).then(canvas => {
+        const imageURL = canvas.toDataURL('image/png');
+        const downloadLink = document.createElement('a');
+        downloadLink.href = imageURL;
+        downloadLink.download = 'ShaftCoinDominance.html';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        // Restore the buttons display
+        buttonsContainer.style.display = originalButtonsDisplay;
+      });
+    }
+  </script>
+</body>
+
+<!-- Mirrored from shaftcoin/dominance.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Apr 2025 23:40:03 GMT -->
+</html>

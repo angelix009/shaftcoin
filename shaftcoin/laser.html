@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from shaftcoin/laser.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Apr 2025 23:40:06 GMT -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShaftCoin Laser Eye Maker</title>
+  <meta name="description" content="Add purple laser eyes to any photo. The ShaftCoin community uses purple laser eyes in honor of it being on Solana but also to honor the legacy of laser eyes in the Bitcoin community." />
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/1YfRWyy8/shaftcoinlogo.gif" />
+  <link href="../fonts.googleapis.com/css21189.css?family=Ubuntu:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+    }
+    a:link, a:visited, a:active {
+      color: #2c6fad;
+      text-decoration: none;
+    }
+    /* Header Styles (from the header HTML you provided) */
+    .top-banner {
+      background: linear-gradient(90deg, #E77E00, #F7931A, #FFB050);
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 14px;
+    }
+    .top-banner a {
+      color: #fff;
+      text-decoration: none;
+    }
+    header {
+      background: #1e1e2d;
+      color: #fff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo-container a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: inherit;
+    }
+    .logo-container img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .logo-container span {
+      font-size: 20px;
+      font-style: italic;
+      font-weight: bold;
+      color: #fff;
+    }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+      margin-left: auto;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      color: #fff !important;
+      text-decoration: none !important;
+      padding: 10px 15px;
+      display: block;
+    }
+    nav ul li a:hover {
+      background-color: #333;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #1e1e2d;
+      min-width: 200px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content li a {
+      padding: 10px 15px;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .header-right {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+    .header-right span {
+      margin-left: 10px;
+    }
+    .header-label {
+      color: #ccc;
+    }
+    .header-right a {
+      color: #fff;
+    }
+    .trade-btn {
+      padding: 8px 15px;
+      font-size: 16px;
+      font-family: 'Ubuntu', sans-serif;
+      color: #fff;
+      border: 1px solid #E77E00;
+      background: linear-gradient(90deg, #E77E00, #F7931A, #FFB050);
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+    .trade-btn:hover {
+      opacity: 0.9;
+    }
+    #ShaftCoin-d-percentage {
+      color: green;
+      font-weight: bold;
+    }
+    /* Laser Eye Maker Editor Specific Styles (from your original second HTML) */
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+    .image-container {
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+      text-align: center;
+      position: relative;
+    }
+    #photo-canvas {
+      display: block;
+      max-width: 100%;
+      border: 1px solid #ccc;
+      background-color: #ccc;
+      min-height: 400px;
+      height: auto;
+      margin: 0 auto;
+    }
+    .upload-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #666;
+      pointer-events: none;
+    }
+    .upload-overlay .plus-symbol {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    #photo-upload {
+      display: none;
+    }
+    .settings-container {
+      flex: 1;
+      min-width: 250px;
+      max-width: 400px;
+      text-align: left;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .settings-container h3 {
+      margin-top: 0;
+    }
+    .settings-container label,
+    .settings-container select,
+    .settings-container input,
+    .settings-container button {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .settings-container button {
+      padding: 8px 12px;
+      background: #1e1e2d;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .settings-container button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .divider {
+      border-top: 1px solid #ccc;
+      margin: 15px 0;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    #download-image {
+      color: #fff;
+      border: 1px solid #d57700;
+      background-color: #ee9209;
+      background-image: linear-gradient(bottom, #e28700 14%, #ee9209 70%);
+    }
+    #download-image:disabled {
+      background-color: #ccc;
+      border: 1px solid #ccc;
+      background-image: none;
+      cursor: not-allowed;
+    }
+    footer {
+      background: #1e1e2d;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+    footer .donation-address {
+      font-family: monospace;
+      margin-top: 5px;
+      color: #ccc;
+    }
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+      }
+      .header-left, .header-right {
+        width: 100%;
+        text-align: left;
+      }
+      .header-right {
+        margin-top: 10px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        background-color: #1e1e2d;
+        margin-top: 10px;
+        display: none;
+        border-radius: 5px;
+      }
+      nav ul.show {
+        display: flex;
+      }
+      nav ul li {
+        width: 100%;
+        text-align: right;
+      }
+      nav ul li a {
+        color: #fff;
+        padding: 10px 15px;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: right;
+      }
+      nav ul li .dropdown-content {
+        position: static;
+        display: none;
+      }
+      nav ul li:hover .dropdown-content {
+        display: block;
+        width: 100%;
+      }
+    }
+    @media (max-width: 480px) {
+      header {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Banner with Scrolling Text -->
+  <div class="top-banner">
+    <a href="https://pump.fun/board?include-nsfw=true" target="_blank">
+      <marquee behavior="scroll" direction="left">
+        INTRODUCING ShaftCoin MARKET: The first memecoin to launch a trading platform, in partnership with SolSniffer and DegenFi. Trade Here. Grow ShaftCoin. Win Together. &nbsp;&nbsp;&nbsp;
+        INTRODUCING ShaftCoin MARKET: The first memecoin to launch a trading platform, in partnership with SolSniffer and DegenFi. Trade Here. Grow ShaftCoin. Win Together.
+      </marquee>
+    </a>
+  </div>
+  <!-- Navigation Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="https://i.ibb.co/1YfRWyy8/shaftcoinlogo.gif" alt="ShaftCoin Logo">
+          <span>ShaftCoin</span>
+        </a>
+      </div>
+      <!-- Added Burger Menu Toggle for Mobile -->
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+      <nav>
+        <ul id="nav-menu">
+          <li class="dropdown">
+            <a href="index.html">Home</a>
+            <ul class="dropdown-content">
+              <li><a href="index.html#what-is-ShaftCoin">What is ShaftCoin</a></li>
+              <li><a href="index.html#pizza">Pizza</a></li>
+              <li><a href="index.html#market">ShaftCoin Market</a></li>
+              <li><a href="index.html#getting-started">Getting Started</a></li>
+              <li><a href="index.html#memes">Memes</a></li>
+              <li><a href="index.html#cexs">CEXs</a></li>
+              <li><a href="index.html#community">Community</a></li>
+              <li><a href="index.html#news">News</a></li>
+              <li><a href="index.html#faq">FAQs</a></li>
+            </ul>
+          </li>
+          <li><a href="dominance.html">Dominance</a></li>
+          <li class="dropdown">
+            <a href="memes.html">Meme Maker</a>
+            <ul class="dropdown-content">
+              <li><a href="memes.html">Meme Maker</a></li>
+              <li><a href="laser.html">Laser Eye Maker</a></li>
+            </ul>
+          <li class="dropdown">
+            <a href="calculator.html">Calculators</a>
+            <ul class="dropdown-content">
+              <li><a href="calculator.html#price-prediction-calculator">Price Prediction Calculator</a></li>
+              <li><a href="calculator.html#marketcap-comparison-calculator">Market Cap Comparison</a></li>
+              <li><a href="calculator.html#calculator">Purchase Power Calculator</a></li>
+              <li><a href="calculator.html#dominance-calculator">Dominance Calculator</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#">Resources</a>
+            <ul class="dropdown-content">
+              <li><a href="https://pump.fun/board?include-nsfw=true" target="_blank"><strong>ShaftCoin Market</strong></a></li>
+              <li><a href="https://www.birdeye.so/token/shaftCA?chain=solana" target="_blank">Birdeye</a></li>
+              <li><a href="https://www.coingecko.com/en/coins/ShaftCoin-2" target="_blank">CoinGecko</a></li>
+              <li><a href="https://coinmarketcap.com/currencies/shaft/" target="_blank">CoinMarketCap</a></li>
+              <li><a href="https://dexscreener.com/solana/d7k2s8tsvak4ycuh5bnayntbry1szpnzjlmhwgyvsrgh" target="_blank">DEX Screener</a></li>
+              <li><a href="https://www.dextools.io/app/en/token/ShaftCointnb" target="_blank">DEXTools</a></li>
+              <li><a href="https://www.dextools.io/app/en/token/ShaftCointnb" target="_blank">Moontok</a></li>
+              <li><a href="https://www.reddit.com/r/ShaftCoinTNB/" target="_blank">Reddit</a></li>
+              <li><a href="https://solscan.io/token/shaftCA" target="_blank">Solscan</a></li>
+              <li><a href="https://stocktwits.com/ShaftCoinTheNextBitcoin" target="_blank">Stocktwits</a></li>
+              <li><a href="https://t.me/ShaftCointnbsol" target="_blank">Telegram</a></li>
+              <li><a href="https://tiktok.com/@ShaftCointnb" target="_blank">TikTok</a></li>
+              <li><a href="https://x.com/ShaftCoinTNB" target="_blank">X</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <span>
+        <span class="header-label">ShaftCoin.D:</span>
+        <a href="dominance.html"><span id="ShaftCoin-d-percentage">Loading...%</span></a>
+      </span>
+      <span>
+        <span class="header-label">Price:</span>
+        <a href="https://coinmarketcap.com/currencies/shaft/" target="_blank"><span id="ShaftCoin-price">Loading...</span></a>
+      </span>
+      <span>
+        <span class="header-label">Market Cap:</span>
+        <a href="https://coinmarketcap.com/currencies/shaft/" target="_blank"><span id="ShaftCoin-marketcap">Loading...</span></a>
+      </span>
+      <!-- Added TRADE button with target="_blank" -->
+      <a href="https://pump.fun/board?include-nsfw=true" class="trade-btn" target="_blank">TRADE</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="main-container">
+      <div class="image-container">
+        <canvas id="photo-canvas"></canvas>
+        <div class="upload-overlay">
+          <span class="plus-symbol">+</span>
+          <p>Drag and drop or click to upload a photo</p>
+        </div>
+      </div>
+      <div class="settings-container">
+        <h3>Step 1. Upload Photo</h3>
+        <input type="file" id="photo-upload" accept="image/*">
+        <p id="photo-instructions">Upload a photo to get started.</p>
+        <div class="divider"></div>
+        <h3>Step 2. Apply Laser Eyes</h3>
+        <p>Click on the image to select the LEFT and RIGHT eye positions.</p>
+        <div class="button-group">
+          <button id="apply-laser" disabled>Apply Purple Laser Eyes</button>
+          <button id="clear-laser" disabled>Clear Laser Eyes</button>
+        </div>
+        <label for="laser-size-slider">Laser Eyes Size:</label>
+        <input type="range" id="laser-size-slider" min="50" max="1500" value="100" step="1">
+        <div class="divider"></div>
+        <h3>Step 3. Add Logo (Optional)</h3>
+        <label for="logo-position">Logo Position:</label>
+        <select id="logo-position">
+          <option value="upper-left">Upper Left</option>
+          <option value="upper-right" selected>Upper Right</option>
+          <option value="bottom-left">Bottom Left</option>
+          <option value="bottom-right">Bottom Right</option>
+        </select>
+        <label for="logo-color">Logo Color:</label>
+        <select id="logo-color">
+          <option value="white">White</option>
+          <option value="grey" selected>Grey</option>
+          <option value="black">Black</option>
+        </select>
+        <label for="logo-size-slider">Logo Size (% of canvas width):</label>
+        <input type="range" id="logo-size-slider" min="10" max="30" value="15" step="1">
+        <div class="button-group">
+          <button id="apply-logo" disabled>Apply Logo</button>
+          <button id="clear-logo" disabled>Clear Logo</button>
+        </div>
+        <div class="divider"></div>
+        <div class="button-group">
+          <button id="download-image" disabled>Download Image</button>
+          <button id="reset" disabled>Reset</button>
+          <button id="clear-photo" disabled>Clear Photo</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div style="margin-bottom: 10px;">
+      <span>Support ShaftCoin</span>
+    </div>
+    <div class="donation-address">
+      Donation Address: EZmot9JJVX5mBiPFLitG6BBtjzk5WsutZbGASrhPmc4H
+    </div>
+    <p>© 2025 ShaftCoin - The Next Bitcoin. Made with love by members of the ShaftCoin community.</p>
+  </footer>
+
+  <script>
+    /* ----------------- Laser Eye Maker Editor Script ----------------- */
+    let uploadedImage = new Image();
+    let laserPoints = [];
+    let laserEye1 = null;
+    let laserEye2 = null;
+    let draggingEye = null;
+    let draggingLogo = null;
+    let dragOffset = { x: 0, y: 0 };
+    let logoData = null;
+    
+    const fileInput = document.getElementById('photo-upload');
+    const canvas = document.getElementById('photo-canvas');
+    const ctx = canvas.getContext('2d');
+    const instructionsEl = document.getElementById('photo-instructions');
+    const applyLaserButton = document.getElementById('apply-laser');
+    const clearLaserButton = document.getElementById('clear-laser');
+    const resetButton = document.getElementById('reset');
+    const applyLogoButton = document.getElementById('apply-logo');
+    const clearLogoButton = document.getElementById('clear-logo');
+    const laserSizeSlider = document.getElementById('laser-size-slider');
+    const logoPositionSelect = document.getElementById('logo-position');
+    const logoColorSelect = document.getElementById('logo-color');
+    const logoSizeSlider = document.getElementById('logo-size-slider');
+    const clearPhotoButton = document.getElementById('clear-photo');
+    const downloadButton = document.getElementById('download-image');
+    
+    // Set crossOrigin for external images so the canvas isn't tainted.
+    const laserImage = new Image();
+    laserImage.crossOrigin = "anonymous";
+    laserImage.src = "../i.ibb.co/PGy3BQwy/laser-3.png";
+    
+    function redrawCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (uploadedImage.src) {
+        ctx.drawImage(uploadedImage, 0, 0);
+      }
+      if (laserEye1) {
+        ctx.drawImage(laserImage, laserEye1.x - laserEye1.width/2, laserEye1.y - laserEye1.height/2, laserEye1.width, laserEye1.height);
+      }
+      if (laserEye2) {
+        ctx.drawImage(laserImage, laserEye2.x - laserEye2.width/2, laserEye2.y - laserEye2.height/2, laserEye2.width, laserEye2.height);
+      }
+      if (logoData && logoData.img) {
+        ctx.drawImage(logoData.img, logoData.x, logoData.y, logoData.width, logoData.height);
+      }
+    }
+    
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedImage.src = evt.target.result;
+        const overlay = document.querySelector('.upload-overlay');
+        if (overlay) overlay.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    });
+    
+    uploadedImage.onload = function() {
+      canvas.width = uploadedImage.width;
+      canvas.height = uploadedImage.height;
+      redrawCanvas();
+      instructionsEl.innerText = "Click on the LEFT eye position.";
+      laserPoints = [];
+      laserEye1 = null;
+      laserEye2 = null;
+      logoData = null;
+      applyLaserButton.disabled = false;
+      clearLaserButton.disabled = false;
+      resetButton.disabled = false;
+      applyLogoButton.disabled = false;
+      clearLogoButton.disabled = false;
+      clearPhotoButton.disabled = false;
+      downloadButton.disabled = false;
+    };
+    
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (e.clientX - rect.left) * (canvas.width / rect.width),
+        y: (e.clientY - rect.top) * (canvas.height / rect.height)
+      };
+    }
+    
+    canvas.addEventListener('click', (e) => {
+      if (!uploadedImage.src) return;
+      e.stopPropagation();
+      if (draggingEye !== null || draggingLogo !== null) return;
+      if (!laserEye1 && laserPoints.length < 2) {
+        const pos = getCanvasCoords(e);
+        laserPoints.push(pos);
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = 'purple';
+        ctx.fill();
+        instructionsEl.innerText = (laserPoints.length === 1) ? "Now click on the RIGHT eye position." : "Positions set! Click 'Apply Purple Laser Eyes'.";
+      }
+    });
+    
+    const detectionPadding = 5;
+    canvas.addEventListener('mousedown', (e) => {
+      const pos = getCanvasCoords(e);
+      if (logoData && pos.x >= logoData.x && pos.x <= logoData.x + logoData.width &&
+          pos.y >= logoData.y && pos.y <= logoData.y + logoData.height) {
+        draggingLogo = logoData;
+        dragOffset.x = pos.x - logoData.x;
+        dragOffset.y = pos.y - logoData.y;
+        return;
+      }
+      if (laserEye1 && pos.x >= (laserEye1.x - laserEye1.width/2 - detectionPadding) &&
+          pos.x <= (laserEye1.x + laserEye1.width/2 + detectionPadding) &&
+          pos.y >= (laserEye1.y - laserEye1.height/2 - detectionPadding) &&
+          pos.y <= (laserEye1.y + laserEye1.height/2 + detectionPadding)) {
+        draggingEye = laserEye1;
+        dragOffset.x = pos.x - laserEye1.x;
+        dragOffset.y = pos.y - laserEye1.y;
+      } else if (laserEye2 && pos.x >= (laserEye2.x - laserEye2.width/2 - detectionPadding) &&
+          pos.x <= (laserEye2.x + laserEye2.width/2 + detectionPadding) &&
+          pos.y >= (laserEye2.y - laserEye2.height/2 - detectionPadding) &&
+          pos.y <= (laserEye2.y + laserEye2.height/2 + detectionPadding)) {
+        draggingEye = laserEye2;
+        dragOffset.x = pos.x - laserEye2.x;
+        dragOffset.y = pos.y - laserEye2.y;
+      }
+    });
+    
+    canvas.addEventListener('mousemove', (e) => {
+      const pos = getCanvasCoords(e);
+      if (draggingLogo) {
+        draggingLogo.x = pos.x - dragOffset.x;
+        draggingLogo.y = pos.y - dragOffset.y;
+        redrawCanvas();
+      }
+      if (draggingEye) {
+        draggingEye.x = pos.x - dragOffset.x;
+        draggingEye.y = pos.y - dragOffset.y;
+        redrawCanvas();
+      }
+    });
+    
+    canvas.addEventListener('mouseup', () => {
+      draggingLogo = null;
+      draggingEye = null;
+    });
+    
+    canvas.addEventListener('mouseleave', () => {
+      draggingLogo = null;
+      draggingEye = null;
+    });
+    
+    applyLaserButton.addEventListener('click', () => {
+      if (laserPoints.length !== 2) {
+        alert("Please select both eye positions by clicking on the image.");
+        return;
+      }
+      const size = parseInt(laserSizeSlider.value, 10);
+      laserEye1 = { x: laserPoints[0].x, y: laserPoints[0].y, width: size, height: size };
+      laserEye2 = { x: laserPoints[1].x, y: laserPoints[1].y, width: size, height: size };
+      redrawCanvas();
+      instructionsEl.innerText = "Purple laser eyes applied! Drag them to adjust position or change size using the slider.";
+      applyLaserButton.disabled = true;
+    });
+    
+    clearLaserButton.addEventListener('click', () => {
+      laserPoints = [];
+      laserEye1 = null;
+      laserEye2 = null;
+      redrawCanvas();
+      instructionsEl.innerText = "Laser eyes cleared! Click on the LEFT eye position to start again.";
+      applyLaserButton.disabled = false;
+    });
+    
+    laserSizeSlider.addEventListener('input', () => {
+      const newSize = parseInt(laserSizeSlider.value, 10);
+      if (laserEye1) { laserEye1.width = newSize; laserEye1.height = newSize; }
+      if (laserEye2) { laserEye2.width = newSize; laserEye2.height = newSize; }
+      redrawCanvas();
+    });
+    
+    applyLogoButton.addEventListener('click', () => {
+      const logoColor = logoColorSelect.value;
+      const logoPos = logoPositionSelect.value;
+      const logoURL = logoUrls[logoColor];
+      const logoImg = new Image();
+      logoImg.crossOrigin = "anonymous";
+      logoImg.src = logoURL;
+      logoImg.onload = function() {
+        const margin = 10;
+        const percent = parseInt(logoSizeSlider.value, 10) / 100;
+        const logoWidth = canvas.width * percent;
+        const logoHeight = logoWidth * (logoImg.naturalHeight / logoImg.naturalWidth);
+        let x, y;
+        switch (logoPos) {
+          case "upper-left":   x = margin; y = margin; break;
+          case "upper-right":  x = canvas.width - margin - logoWidth; y = margin; break;
+          case "bottom-left":  x = margin; y = canvas.height - margin - logoHeight; break;
+          case "bottom-right": x = canvas.width - margin - logoWidth; y = canvas.height - margin - logoHeight; break;
+          default:             x = margin; y = margin;
+        }
+        logoData = { x, y, width: logoWidth, height: logoHeight, img: logoImg, naturalAspectRatio: logoImg.naturalHeight / logoImg.naturalWidth, pinnedCorner: logoPos };
+        redrawCanvas();
+        instructionsEl.innerText = "Logo applied! Drag it to adjust position or change size using the slider.";
+      };
+    });
+    
+    clearLogoButton.addEventListener('click', () => {
+      logoData = null;
+      redrawCanvas();
+      instructionsEl.innerText = "Logo cleared!";
+    });
+    
+    logoSizeSlider.addEventListener('input', () => {
+      if (logoData) {
+        const percent = parseInt(logoSizeSlider.value, 10) / 100;
+        const newWidth = canvas.width * percent;
+        const newHeight = newWidth * logoData.naturalAspectRatio;
+        const margin = 10;
+        switch (logoData.pinnedCorner) {
+          case "upper-left":   logoData.x = margin; logoData.y = margin; break;
+          case "upper-right":  logoData.x = canvas.width - margin - newWidth; logoData.y = margin; break;
+          case "bottom-left":  logoData.x = margin; logoData.y = canvas.height - margin - newHeight; break;
+          case "bottom-right": logoData.x = canvas.width - margin - newWidth; logoData.y = canvas.height - margin - newHeight; break;
+          default:             logoData.x = margin; logoData.y = margin;
+        }
+        logoData.width = newWidth;
+        logoData.height = newHeight;
+        redrawCanvas();
+      }
+    });
+    
+    resetButton.addEventListener('click', () => {
+      if (uploadedImage.src) {
+        laserPoints = [];
+        laserEye1 = null;
+        laserEye2 = null;
+        logoData = null;
+        redrawCanvas();
+        instructionsEl.innerText = "Click on the LEFT eye position.";
+        applyLaserButton.disabled = false;
+      }
+    });
+    
+    clearPhotoButton.addEventListener('click', () => {
+      uploadedImage.src = "";
+      canvas.width = 500;
+      canvas.height = 400;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      instructionsEl.innerText = "Upload a photo to get started.";
+      const overlay = document.querySelector('.upload-overlay');
+      if (overlay) overlay.style.display = 'block';
+      laserPoints = [];
+      laserEye1 = null;
+      laserEye2 = null;
+      logoData = null;
+      applyLaserButton.disabled = true;
+      clearLaserButton.disabled = true;
+      resetButton.disabled = true;
+      applyLogoButton.disabled = true;
+      clearLogoButton.disabled = true;
+      clearPhotoButton.disabled = true;
+      downloadButton.disabled = true;
+      fileInput.value = "";
+    });
+    
+    downloadButton.addEventListener('click', function() {
+      const dataURL = canvas.toDataURL('image/png');
+      console.log("Data URL (first 50 chars):", dataURL.substring(0, 50) + "...");
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = 'ShaftCoin-laser-eye.html';
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+    
+    var globalShaftCoinPrice = 0;
+    var currentShaftCoinMarketCap = 0;
+    var currentMemeMarketCap = 0;
+    
+    async function fetchMemeMarketCap() {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/categories/solana-meme-coins');
+        if (!response.ok) throw new Error('Failed to fetch memecoin market cap');
+        const data = await response.json();
+        if (data && data.market_cap) {
+          return parseFloat(data.market_cap);
+        }
+      } catch (error) {
+        console.error('Error fetching memecoin market cap:', error);
+      }
+      return null;
+    }
+    
+    async function fetchShaftCoinData() {
+      try {
+        const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/d7k2s8tsvak4ycuh5bnayntbry1szpnzjlmhwgyvsrgh');
+        if (!response.ok) throw new Error('Failed to fetch ShaftCoin data');
+        const data = await response.json();
+        if (data.pairs && data.pairs.length > 0) {
+          const pair = data.pairs[0];
+          globalShaftCoinPrice = parseFloat(pair.priceUsd);
+          const ShaftCoinMarketCapUSD = pair.fdv ? parseFloat(pair.fdv) : (pair.fdvUsd ? parseFloat(pair.fdvUsd) : null);
+          if (ShaftCoinMarketCapUSD) {
+            currentShaftCoinMarketCap = ShaftCoinMarketCapUSD;
+            if (document.getElementById('ShaftCoin-marketcap')) {
+              document.getElementById('ShaftCoin-marketcap').innerText =
+                `$${(ShaftCoinMarketCapUSD / 1e6).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}M`;
+            }
+            const memeMarketCap = await fetchMemeMarketCap();
+            if (memeMarketCap) {
+              currentMemeMarketCap = memeMarketCap;
+              const headerDominancePercentage = (ShaftCoinMarketCapUSD / memeMarketCap * 100).toFixed(3);
+              if (document.getElementById('ShaftCoin-d-percentage')) {
+                document.getElementById('ShaftCoin-d-percentage').innerText = headerDominancePercentage + '%';
+              }
+            }
+          } else {
+            if (document.getElementById('ShaftCoin-marketcap')) {
+              document.getElementById('ShaftCoin-marketcap').innerText = 'N/A';
+            }
+          }
+          if (document.getElementById('ShaftCoin-price')) {
+            document.getElementById('ShaftCoin-price').innerText = `$${globalShaftCoinPrice.toFixed(4)}`;
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching ShaftCoin data:', error);
+      }
+    }
+    
+    fetchShaftCoinData();
+    setInterval(fetchShaftCoinData, 600000);
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("menu-toggle").addEventListener("click", function() {
+        document.getElementById("nav-menu").classList.toggle("show");
+      });
+      
+      const imageContainer = document.querySelector('.image-container');
+      imageContainer.addEventListener('click', function() {
+        if (!uploadedImage.src) {
+          fileInput.click();
+        }
+      });
+      imageContainer.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      });
+      imageContainer.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            uploadedImage.src = evt.target.result;
+            const overlay = document.querySelector('.upload-overlay');
+            if (overlay) overlay.style.display = 'none';
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+  </script>
+</body>
+
+<!-- Mirrored from shaftcoin/laser.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Apr 2025 23:40:07 GMT -->
+</html>

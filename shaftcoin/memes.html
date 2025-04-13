@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from shaftcoin/memes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Apr 2025 23:40:03 GMT -->
+<head>
+  <meta charset="UTF-8" />
+  <!-- Disable browser caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShaftCoin Meme Generator - Create Memes of ShaftCoin - The Next Bitcoin</title>
+  <meta name="description" content="Use the ShaftCoin Meme Generator to create ShaftCoin themed memes! This tool is for entertainment purposes only and not financial advice." />
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/1YfRWyy8/shaftcoinlogo.gif" />
+  <!-- Include html2canvas library (if needed) -->
+  <script src="../cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="../fonts.googleapis.com/css21189.css?family=Ubuntu:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    /* ===================== HEADER & FOOTER ===================== */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #333;
+    }
+    a:link, a:visited, a:active { color: #2c6fad; text-decoration: none; }
+    /* --- Header Styles from your original header --- */
+    .top-banner {
+      background: linear-gradient(90deg, #E77E00, #F7931A, #FFB050);
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      font-size: 14px;
+    }
+    .top-banner a { color: #fff; text-decoration: none; }
+    header {
+      background: #1e1e2d;
+      color: #fff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo-container a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: inherit;
+    }
+    .logo-container img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .logo-container span {
+      font-size: 20px;
+      font-style: italic;
+      font-weight: bold;
+      color: #fff;
+    }
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+      margin-left: auto;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      color: #fff !important;
+      text-decoration: none !important;
+      padding: 10px 15px;
+      display: block;
+    }
+    nav ul li a:hover {
+      background-color: #333;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #1e1e2d;
+      min-width: 200px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content li a { padding: 10px 15px; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .header-right {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+    .header-right span { margin-left: 10px; }
+    .header-label { color: #ccc; }
+    .header-right a { color: #fff; }
+    .trade-btn {
+      padding: 8px 15px;
+      font-size: 16px;
+      font-family: 'Ubuntu', sans-serif;
+      color: #fff;
+      border: 1px solid #E77E00;
+      background: linear-gradient(90deg, #E77E00, #F7931A, #FFB050);
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+    .trade-btn:hover { opacity: 0.9; }
+    #ShaftCoin-d-percentage { color: green; font-weight: bold; }
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; padding: 15px 20px; }
+      .header-left, .header-right { width: 100%; text-align: left; }
+      .header-right { margin-top: 10px; }
+      .menu-toggle { display: block; }
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        background-color: #1e1e2d;
+        margin-top: 10px;
+        display: none;
+        border-radius: 5px;
+      }
+      nav ul.show { display: flex; }
+      nav ul li { width: 100%; text-align: right; }
+      nav ul li a {
+        color: #fff;
+        padding: 10px 15px;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: right;
+      }
+      nav ul li .dropdown-content { position: static; display: none; }
+    }
+    @media (max-width: 480px) { header { padding: 10px; } }
+    /* ===================== Footer Styles ===================== */
+    footer {
+      background: #1e1e2d;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+    footer .donation-address {
+      font-family: monospace;
+      margin-top: 5px;
+      color: #ccc;
+    }
+    /* ===================== MEME GENERATOR BUILDER ===================== */
+    .main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 30px;
+      justify-content: center;
+    }
+    .image-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      min-height: 400px;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .image-container { min-height: 250px; }
+    }
+    #photo-canvas {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      background: #ccc;
+      display: block;
+    }
+    .upload-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 20px;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .upload-overlay button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .settings-container {
+      max-width: 400px;
+      width: 100%;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .settings-container h3 { margin-top: 0; }
+    .instructions {
+      font-size: 14px;
+      color: #555;
+      margin: 0 0 10px 20px;
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .button-group button {
+      padding: 12px 16px;
+      font-size: 16px;
+      background: #1e1e2d;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    #add-solana-logo { background: #1e1e2d; }
+    #add-laser-eye { background: #800080; }
+    #delete-element { background: #FF5858; border: 1px solid #FF5858; }
+    #clear-background { background: #1e1e2d; border: 1px solid #1e1e2d; }
+    #download-image {
+      color: #fff;
+      border: 1px solid #d57700;
+      background-color: #ee9209;
+      background-image: linear-gradient(bottom, #e28700 14%, #ee9209 70%);
+    }
+    .legal-disclaimer {
+      font-size: 14px;
+      color: grey;
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+    /* Modal for Text Input */
+    #text-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    #text-modal .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 400px;
+      position: relative;
+    }
+    #close-text-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .form-row { margin-bottom: 10px; }
+    .form-row label { display: block; margin-bottom: 3px; }
+    #text-modal textarea, #text-modal input, #text-modal select { width: 100%; box-sizing: border-box; }
+    .checkbox-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .checkbox-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+    #outline-color-container,
+    #modal-bg-color-container { display: none; }
+    #sticker-upload { display: none; }
+    #text-modal input[type="color"] {
+      -webkit-appearance: none;
+      border: 1px solid #ccc;
+      width: 40px;
+      height: 40px;
+      border-radius: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+    #text-modal input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    #text-modal input[type="color"]::-webkit-color-swatch { border: none; border-radius: 0; }
+    @media (max-width: 768px) {
+      .main-container { flex-direction: column; align-items: center; }
+      .image-container { min-height: 250px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===================== HEADER ===================== -->
+  <!-- Top Banner with Scrolling Text -->
+  <div class="top-banner">
+    <a href="https://pump.fun/board?include-nsfw=true" target="_blank">
+      <marquee behavior="scroll" direction="left">
+        INTRODUCING ShaftCoin MARKET: The first memecoin to launch a trading platform, in partnership with SolSniffer and DegenFi. Trade Here. Grow ShaftCoin. Win Together. &nbsp;&nbsp;&nbsp;
+        INTRODUCING ShaftCoin MARKET: The first memecoin to launch a trading platform, in partnership with SolSniffer and DegenFi. Trade Here. Grow ShaftCoin. Win Together.
+      </marquee>
+    </a>
+  </div>
+  <!-- Navigation Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="https://i.ibb.co/1YfRWyy8/shaftcoinlogo.gif" alt="ShaftCoin Logo">
+          <span>ShaftCoin</span>
+        </a>
+      </div>
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+      <nav>
+        <ul id="nav-menu">
+          <li class="dropdown">
+            <a href="index.html">Home</a>
+            <ul class="dropdown-content">
+              <li><a href="index.html#what-is-ShaftCoin">What is ShaftCoin</a></li>
+              <li><a href="index.html#pizza">Pizza</a></li>
+              <li><a href="index.html#market">ShaftCoin Market</a></li>
+              <li><a href="index.html#getting-started">Getting Started</a></li>
+              <li><a href="index.html#memes">Memes</a></li>
+              <li><a href="index.html#cexs">CEXs</a></li>
+              <li><a href="index.html#community">Community</a></li>
+              <li><a href="index.html#news">News</a></li>
+              <li><a href="index.html#faq">FAQs</a></li>
+            </ul>
+          </li>
+          <li><a href="dominance.html">Dominance</a></li>
+          <li class="dropdown">
+            <a href="memes.html">Meme Maker</a>
+            <ul class="dropdown-content">
+              <li><a href="memes.html">Meme Maker</a></li>
+              <li><a href="laser.html">Laser Eye Maker</a></li>
+            </ul>
+          <li class="dropdown">
+            <a href="calculator.html">Calculators</a>
+            <ul class="dropdown-content">
+                <li><a href="calculator.html#price-prediction-calculator">Price Prediction Calculator</a></li>
+                <li><a href="calculator.html#marketcap-comparison-calculator">Market Cap Comparison</a></li>
+                <li><a href="calculator.html#calculator">Purchase Power Calculator</a></li>
+                <li><a href="calculator.html#dominance-calculator">Dominance Calculator</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#">Resources</a>
+            <ul class="dropdown-content">
+              <li><a href="https://pump.fun/board?include-nsfw=true" target="_blank"><strong>ShaftCoin Market</strong></a></li>
+              <li><a href="https://www.birdeye.so/token/AqnraQ5hqR9S87qgAwcZijWVCPiPHajvdK3qhtnApump?chain=solana" target="_blank">Birdeye</a></li>
+              <li><a href="https://www.coingecko.com/en/coins/ShaftCoin-2" target="_blank">CoinGecko</a></li>
+              <li><a href="https://coinmarketcap.com/currencies/shaft/" target="_blank">CoinMarketCap</a></li>
+              <li><a href="https://dexscreener.com/solana/d7k2s8tsvak4ycuh5bnayntbry1szpnzjlmhwgyvsrgh" target="_blank">DEX Screener</a></li>
+              <li><a href="https://www.dextools.io/app/en/token/ShaftCointnb" target="_blank">DEXTools</a></li>
+              <li><a href="https://www.dextools.io/app/en/token/ShaftCointnb" target="_blank">Moontok</a></li>
+              <li><a href="https://www.reddit.com/r/ShaftCoinTNB/" target="_blank">Reddit</a></li>
+              <li><a href="https://solscan.io/token/AqnraQ5hqR9S87qgAwcZijWVCPiPHajvdK3qhtnApump" target="_blank">Solscan</a></li>
+              <li><a href="https://stocktwits.com/ShaftCoinTheNextBitcoin" target="_blank">Stocktwits</a></li>
+              <li><a href="https://t.me/ShaftCointnbsol" target="_blank">Telegram</a></li>
+              <li><a href="https://tiktok.com/@ShaftCointnb" target="_blank">TikTok</a></li>
+              <li><a href="https://x.com/ShaftCoinTNB" target="_blank">X</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <span>
+        <span class="header-label">ShaftCoin.D:</span>
+        <a href="dominance.html"><span id="ShaftCoin-d-percentage">Loading...%</span></a>
+      </span>
+      <span>
+        <span class="header-label">Price:</span>
+        <a href="https://coinmarketcap.com/currencies/shaft/" target="_blank">
+          <span id="ShaftCoin-price">Loading...</span>
+        </a>
+      </span>
+      <span>
+        <span class="header-label">Market Cap:</span>
+        <a href="https://coinmarketcap.com/currencies/shaft/" target="_blank">
+          <span id="ShaftCoin-marketcap">Loading...</span>
+        </a>
+      </span>
+      <!-- Added TRADE button with target="_blank" -->
+      <a href="https://pump.fun/board?include-nsfw=true" class="trade-btn" target="_blank">TRADE</a>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT: Meme Generator Builder ===================== -->
+  <main>
+    <div class="main-container">
+      <!-- Canvas Area -->
+      <div class="image-container">
+        <canvas id="photo-canvas"></canvas>
+        <div class="upload-overlay">
+          <button id="upload-btn">Upload Background Image</button>
+          <button id="upload-url-btn" style="margin-top: 10px;">Add Background Image by URL</button>
+        </div>
+        <input type="file" id="photo-upload" accept="image/*" style="display:none;">
+      </div>
+      <!-- Settings Panel -->
+      <div class="settings-container">
+        <h3>ShaftCoin Meme Maker</h3>
+        <ul class="instructions">
+          <li>Add a background image to start with.</li>
+          <li>Drag the element to move it.</li>
+          <li>Drag the blue corner handle to resize and rotate.</li>
+        </ul><br>
+        <div class="button-group">
+          <button id="add-ShaftCoin-logo">Add ShaftCoin Logo</button>
+          <button id="add-bitcoin-logo">Add Bitcoin Logo</button>
+          <button id="add-solana-logo">Add Solana Logo</button>
+          <button id="add-sticker">Add Overlay Image</button>
+          <button id="add-text">Add Text</button>
+          <button id="add-laser-eye" style="background: #800080;">Add Laser Eye</button>
+          <button id="delete-element">Remove</button>
+          <!-- The download button now says "Save Meme" -->
+          <button id="download-image" disabled>Save Meme</button>
+          <button id="clear-background" disabled>Clear</button>
+        </div>
+        <div class="legal-disclaimer">
+          <strong>Legal Disclaimer:</strong> We assume no liability for any memes produced through this tool, nor do we endorse the content generated. All responsibility for the material created rests solely with the user.
+        </div>
+      </div>
+    </div>
+    <!-- Hidden file input for "Add Image" -->
+    <input type="file" id="sticker-upload" accept="image/*">
+    <!-- Modal for Adding Text -->
+    <div id="text-modal">
+      <div class="modal-content">
+        <span id="close-text-modal">&times;</span>
+        <h3>Add Text</h3>
+        <div class="form-row">
+          <label for="modal-text">Text:</label>
+          <textarea id="modal-text" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <label for="modal-font">Font Style:</label>
+          <select id="modal-font">
+            <option value="Ubuntu Bold Italic" style="font-family: 'Ubuntu', sans-serif; font-style: italic; font-weight: bold;" selected>Ubuntu Bold Italic</option>
+            <option value="Ubuntu Bold" style="font-family: 'Ubuntu', sans-serif; font-weight: bold;">Ubuntu Bold</option>
+            <option value="Impact" style="font-family: Impact, Charcoal, sans-serif;">Impact</option>
+            <option value="Arial" style="font-family: Arial, sans-serif;">Arial</option>
+            <option value="Georgia" style="font-family: Georgia, serif;">Georgia</option>
+            <option value="Calibri" style="font-family: Calibri, sans-serif;">Calibri</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="modal-font-size">Font Size (px):</label>
+          <input type="number" id="modal-font-size" value="50">
+        </div>
+        <div class="form-row">
+          <label for="modal-text-color">Fill Color:</label>
+          <input type="color" id="modal-text-color" value="#ffffff">
+        </div>
+        <div class="checkbox-container">
+          <div class="checkbox-item">
+            <label for="modal-enable-stroke">
+              <input type="checkbox" id="modal-enable-stroke"> Enable Outline
+            </label>
+            <div id="outline-color-container">
+              <label for="modal-stroke-color">Outline Color:</label><br>
+              <input type="color" id="modal-stroke-color" value="#000000">
+            </div>
+          </div>
+          <div class="checkbox-item">
+            <label for="modal-enable-bg">
+              <input type="checkbox" id="modal-enable-bg"> Enable Background
+            </label>
+            <div id="modal-bg-color-container">
+              <label for="modal-bg-color">Background Color:</label><br>
+              <input type="color" id="modal-bg-color" value="#F7931A">
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:10px; text-align: right;">
+          <button id="cancel-text">Cancel</button>
+          <button id="confirm-text">Save</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div style="margin-bottom: 10px;">
+      <span>Support ShaftCoin</span>
+    </div>
+    <div class="donation-address">
+      Donation Address: EZmot9JJVX5mBiPFLitG6BBtjzk5WsutZbGASrhPmc4H
+    </div>
+    <p>© 2025 ShaftCoin - The Next Bitcoin. Made with love by members of the ShaftCoin community.</p>
+  </footer>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+    /***** Header Data Update Logic *****/
+    let currentShaftCoinPrice = 0;
+    let currentShaftCoinMarketCap = 0;
+    let currentMemeMarketCap = 0;
+    
+    async function fetchMemeMarketCap() {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/coins/categories/solana-meme-coins');
+        if (!response.ok) throw new Error('Failed to fetch memecoin market cap');
+        const data = await response.json();
+        if (data && data.market_cap) {
+          return parseFloat(data.market_cap);
+        }
+      } catch (error) {
+        console.error('Error fetching memecoin market cap:', error);
+      }
+      return null;
+    }
+    
+    async function updateHeaderData() {
+      const memeMarketCap = await fetchMemeMarketCap();
+      try {
+        const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/d7k2s8tsvak4ycuh5bnayntbry1szpnzjlmhwgyvsrgh');
+        if (!response.ok) throw new Error('Failed to fetch ShaftCoin data');
+        const data = await response.json();
+        if (data.pairs && data.pairs.length > 0) {
+          const pair = data.pairs[0];
+          currentShaftCoinPrice = parseFloat(pair.priceUsd);
+          document.getElementById('ShaftCoin-price').innerText = `$${currentShaftCoinPrice.toFixed(4)}`;
+          const ShaftCoinMC = pair.fdv ? parseFloat(pair.fdv) : (pair.fdvUsd ? parseFloat(pair.fdvUsd) : null);
+          if (ShaftCoinMC && memeMarketCap) {
+            currentShaftCoinMarketCap = ShaftCoinMC;
+            currentMemeMarketCap = memeMarketCap;
+            document.getElementById('ShaftCoin-marketcap').innerText = `$${(ShaftCoinMC / 1e6).toFixed(2)}M`;
+            const dominance = (ShaftCoinMC / memeMarketCap * 100).toFixed(3);
+            document.getElementById('ShaftCoin-d-percentage').innerText = dominance + '%';
+          } else {
+            document.getElementById('ShaftCoin-marketcap').innerText = 'N/A';
+          }
+        }
+      } catch (error) {
+        console.error('Error in updateHeaderData:', error);
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      updateHeaderData();
+      document.getElementById("menu-toggle").addEventListener("click", function() {
+        document.getElementById("nav-menu").classList.toggle("show");
+      });
+    });
+    
+    /***** Meme Generator Builder Logic *****/
+    const logoUrls = {
+      ShaftCoin: "https://i.ibb.co/1YfRWyy8/shaftcoinlogo.gif",
+      bitcoin: "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg",
+      solana: "https://pbs.twimg.com/profile_images/1472933274209107976/6u-LQfjG_400x400.jpg"
+    };
+    
+    let backgroundImage = new Image();
+    let elements = [];
+    let selectedElement = null;
+    let draggingMove = false;
+    let draggingTransform = false;
+    let dragOffset = { x: 0, y: 0 };
+    let editingTextElement = null;
+    let transformInitial = { initialVector: null, initialDistance: 0, initialAngle: 0, initialScale: 0, initialRotation: 0 };
+    let touchStartTime = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    const canvas = document.getElementById('photo-canvas');
+    const ctx = canvas.getContext('2d');
+    const fileInput = document.getElementById('photo-upload');
+    const overlay = document.querySelector('.upload-overlay');
+    const downloadButton = document.getElementById('download-image');
+    const clearBackgroundButton = document.getElementById('clear-background');
+    
+    const addShaftCoinLogoButton = document.getElementById('add-ShaftCoin-logo');
+    const addBitcoinLogoButton = document.getElementById('add-bitcoin-logo');
+    const addSolanaLogoButton = document.getElementById('add-solana-logo');
+    const addStickerButton = document.getElementById('add-sticker');
+    const addTextButton = document.getElementById('add-text');
+    const addLaserEyeButton = document.getElementById('add-laser-eye');
+    const deleteElementButton = document.getElementById('delete-element');
+    const stickerInput = document.getElementById('sticker-upload');
+    
+    const textModal = document.getElementById('text-modal');
+    const modalTextInput = document.getElementById('modal-text');
+    const modalFontSelect = document.getElementById('modal-font');
+    const modalFontSizeInput = document.getElementById('modal-font-size');
+    const modalTextColorInput = document.getElementById('modal-text-color');
+    const modalStrokeColorInput = document.getElementById('modal-stroke-color');
+    const modalEnableBgCheckbox = document.getElementById('modal-enable-bg');
+    const modalBgColorContainer = document.getElementById('modal-bg-color-container');
+    const modalBgColorInput = document.getElementById('modal-bg-color');
+    const cancelTextButton = document.getElementById('cancel-text');
+    const confirmTextButton = document.getElementById('confirm-text');
+    const closeTextModal = document.getElementById('close-text-modal');
+    const modalEnableStroke = document.getElementById('modal-enable-stroke');
+    
+    cancelTextButton.addEventListener('click', () => { textModal.style.display = 'none'; });
+    closeTextModal.addEventListener('click', () => { textModal.style.display = 'none'; });
+    
+    modalEnableBgCheckbox.addEventListener('change', () => {
+      modalBgColorContainer.style.display = modalEnableBgCheckbox.checked ? 'block' : 'none';
+    });
+    
+    modalEnableStroke.addEventListener('change', () => {
+      const outlineContainer = document.getElementById('outline-color-container');
+      outlineContainer.style.display = modalEnableStroke.checked ? 'block' : 'none';
+    });
+    
+    function getWrappedLines(el, maxWidth) {
+      ctx.font = getCanvasFont(el);
+      let lines = [];
+      if (el.text.indexOf('\n') !== -1) {
+        let rawLines = el.text.split('\n');
+        rawLines.forEach(function(rawLine) {
+          let words = rawLine.split(' ');
+          let line = '';
+          for (let word of words) {
+            let testLine = line ? line + ' ' + word : word;
+            if (ctx.measureText(testLine).width > maxWidth && line !== '') {
+              lines.push(line);
+              line = word;
+            } else {
+              line = testLine;
+            }
+          }
+          lines.push(line);
+        });
+      } else {
+        let words = el.text.split(' ');
+        let line = '';
+        for (let word of words) {
+          let testLine = line ? line + ' ' + word : word;
+          if (ctx.measureText(testLine).width > maxWidth && line !== '') {
+            lines.push(line);
+            line = word;
+          } else {
+            line = testLine;
+          }
+        }
+        lines.push(line);
+      }
+      return lines;
+    }
+    
+    function getCanvasFont(el) {
+      let fontFamily = el.font;
+      let fontWeight = "";
+      let fontStyle = "";
+      if (el.font === "Ubuntu Bold Italic") {
+        fontWeight = "bold";
+        fontStyle = "italic";
+        fontFamily = "Ubuntu";
+      } else if (el.font === "Ubuntu Bold") {
+        fontWeight = "bold";
+        fontFamily = "Ubuntu";
+      }
+      return `${fontStyle} ${fontWeight} ${el.fontSize}px ${fontFamily}`.trim();
+    }
+    
+    function getTransformHandle(el) {
+      if (el.type === 'text') {
+        ctx.font = getCanvasFont(el);
+        const maxWidth = canvas.width * 0.9;
+        const lines = getWrappedLines(el, maxWidth);
+        const lineHeight = el.fontSize * 1.2;
+        let maxLineWidth = 0;
+        lines.forEach(line => {
+          const w = ctx.measureText(line).width;
+          if (w > maxLineWidth) maxLineWidth = w;
+        });
+        el.width = maxLineWidth;
+        el.height = lines.length * lineHeight;
+      }
+      let localX = el.width / 2, localY = el.height / 2;
+      if (el.circle) { localX += 10; localY += 10; }
+      const cos = Math.cos(el.rotation), sin = Math.sin(el.rotation);
+      return { x: el.x + localX * cos - localY * sin, y: el.y + localX * sin + localY * cos };
+    }
+    
+    function drawTextElement(el) {
+      ctx.font = getCanvasFont(el);
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const maxWidth = canvas.width * 0.9;
+      const lines = getWrappedLines(el, maxWidth);
+      const lineHeight = el.fontSize * 1.2;
+      const totalHeight = lines.length * lineHeight;
+      let maxLineWidth = 0;
+      lines.forEach(line => {
+        const w = ctx.measureText(line).width;
+        if (w > maxLineWidth) maxLineWidth = w;
+      });
+      el.width = maxLineWidth;
+      el.height = totalHeight;
+      if (el.bgEnabled) {
+        const padding = el.fontSize * 0.1;
+        ctx.fillStyle = el.bgColor;
+        ctx.fillRect(-maxLineWidth/2 - padding, -totalHeight/2 - padding, maxLineWidth + 2 * padding, totalHeight + 2 * padding);
+      }
+      if (el.outlineEnabled) {
+        ctx.save();
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = el.fontSize * 0.10;
+        ctx.strokeStyle = el.strokeColor;
+        for (let i = 0; i < lines.length; i++) {
+          const yPos = -totalHeight/2 + i * lineHeight + lineHeight/2;
+          ctx.strokeText(lines[i], 0, yPos);
+        }
+        ctx.restore();
+      }
+      ctx.fillStyle = el.color;
+      for (let i = 0; i < lines.length; i++) {
+        const yPos = -totalHeight/2 + i * lineHeight + lineHeight/2;
+        ctx.fillText(lines[i], 0, yPos);
+      }
+    }
+    
+    function redrawCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (backgroundImage.src) { ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height); }
+      elements.forEach(el => {
+        ctx.save();
+        ctx.translate(el.x, el.y);
+        ctx.rotate(el.rotation);
+        if (el.type === 'image') {
+          if (el.circle) {
+            const radius = Math.min(el.width, el.height) / 2;
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(el.img, -el.width/2, -el.height/2, el.width, el.height);
+            ctx.restore();
+          } else {
+            ctx.drawImage(el.img, -el.width/2, -el.height/2, el.width, el.height);
+          }
+          if (el === selectedElement) {
+            ctx.save();
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-el.width/2, -el.height/2, el.width, el.height);
+            ctx.restore();
+          }
+        } else if (el.type === 'text') {
+          drawTextElement(el);
+        }
+        if (el === selectedElement) {
+          const globalHandle = getTransformHandle(el);
+          ctx.beginPath();
+          ctx.arc(globalHandle.x - el.x, globalHandle.y - el.y, 16, 0, Math.PI * 2);
+          ctx.fillStyle = 'blue';
+          ctx.fill();
+        }
+        ctx.restore();
+      });
+    }
+    
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        backgroundImage = new Image();
+        backgroundImage.src = evt.target.result;
+        backgroundImage.onload = function() {
+          canvas.width = backgroundImage.naturalWidth;
+          canvas.height = backgroundImage.naturalHeight;
+          redrawCanvas();
+          if (overlay) overlay.style.display = 'none';
+          downloadButton.disabled = false;
+          clearBackgroundButton.disabled = false;
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+    
+    document.getElementById('upload-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.click();
+    });
+    
+    document.getElementById('upload-url-btn').addEventListener('click', () => {
+      const url = prompt("Enter the background image URL:");
+      if (url) {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = url;
+        img.onload = function() {
+          backgroundImage = img;
+          canvas.width = backgroundImage.naturalWidth;
+          canvas.height = backgroundImage.naturalHeight;
+          redrawCanvas();
+          if (overlay) overlay.style.display = 'none';
+          downloadButton.disabled = false;
+          clearBackgroundButton.disabled = false;
+        };
+        img.onerror = function() {
+          alert("Failed to load image. Please check the URL and try again.");
+        };
+      }
+    });
+    
+    function addImageElement(src) {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = src;
+      img.onload = function() {
+        const width = canvas.width * 0.2;
+        const height = width * (img.naturalHeight / img.naturalWidth);
+        let newEl = {
+          type: 'image',
+          img: img,
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          width: width,
+          height: height,
+          rotation: 0,
+          originalWidth: width,
+          originalHeight: height,
+          scale: 1,
+          circle: false
+        };
+        if (src === logoUrls.ShaftCoin || src === logoUrls.solana) {
+          newEl.circle = true;
+          selectedElement = newEl;
+        }
+        if (src === logoUrls.bitcoin) { newEl.rotation = 0; }
+        elements.push(newEl);
+        redrawCanvas();
+      };
+    }
+    
+    addShaftCoinLogoButton.addEventListener('click', () => { addImageElement(logoUrls.ShaftCoin); });
+    addBitcoinLogoButton.addEventListener('click', () => { addImageElement(logoUrls.bitcoin); });
+    addSolanaLogoButton.addEventListener('click', () => { addImageElement(logoUrls.solana); });
+    addStickerButton.addEventListener('click', () => { stickerInput.click(); });
+    stickerInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) { addImageElement(evt.target.result); };
+      reader.readAsDataURL(file);
+    });
+    
+    addTextButton.addEventListener('click', () => { editingTextElement = null; textModal.style.display = 'flex'; });
+    
+    addLaserEyeButton.addEventListener('click', () => {
+      const laserImg = new Image();
+      laserImg.crossOrigin = "anonymous";
+      laserImg.src = "../i.ibb.co/PGy3BQwy/laser-3.png";
+      laserImg.onload = function() {
+        const width = canvas.width * 0.15, height = width;
+        let newEl = {
+          type: 'image',
+          img: laserImg,
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          width: width,
+          height: height,
+          rotation: 0,
+          originalWidth: width,
+          originalHeight: height,
+          scale: 1,
+          circle: false
+        };
+        elements.push(newEl);
+        redrawCanvas();
+      };
+    });
+    
+    canvas.addEventListener('dblclick', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+      const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+      for (let i = elements.length - 1; i >= 0; i--) {
+        if (elements[i].type === 'text' && isPointInElement(x, y, elements[i])) {
+          editingTextElement = elements[i];
+          modalTextInput.value = editingTextElement.text;
+          modalFontSelect.value = editingTextElement.font;
+          modalFontSizeInput.value = editingTextElement.fontSize;
+          modalTextColorInput.value = editingTextElement.color;
+          modalStrokeColorInput.value = editingTextElement.strokeColor || "#000000";
+          modalEnableBgCheckbox.checked = editingTextElement.bgEnabled || false;
+          modalBgColorContainer.style.display = editingTextElement.bgEnabled ? 'block' : 'none';
+          modalEnableStroke.checked = editingTextElement.outlineEnabled || false;
+          modalEnableStroke.dispatchEvent(new Event('change'));
+          textModal.style.display = 'flex';
+          break;
+        }
+      }
+    });
+    
+    confirmTextButton.addEventListener('click', () => {
+      const text = modalTextInput.value.trim();
+      const font = modalFontSelect.value;
+      const fontSize = parseInt(modalFontSizeInput.value, 10);
+      const fillColor = modalTextColorInput.value;
+      const strokeColor = modalStrokeColorInput.value;
+      const bgEnabled = modalEnableBgCheckbox.checked;
+      const bgColor = modalBgColorInput.value;
+      const outlineEnabled = modalEnableStroke.checked;
+      if (!text) { alert("Please enter text."); return; }
+      if (editingTextElement) {
+        editingTextElement.text = text;
+        editingTextElement.font = font;
+        editingTextElement.fontSize = fontSize;
+        editingTextElement.color = fillColor;
+        editingTextElement.strokeColor = strokeColor;
+        editingTextElement.outlineEnabled = outlineEnabled;
+        editingTextElement.bgEnabled = bgEnabled;
+        editingTextElement.bgColor = bgColor;
+        editingTextElement.originalFontSize = fontSize;
+        editingTextElement.scale = 1;
+        editingTextElement = null;
+      } else {
+        let newEl = {
+          type: 'text',
+          text: text,
+          font: font,
+          fontSize: fontSize,
+          color: fillColor,
+          strokeColor: strokeColor,
+          outlineEnabled: outlineEnabled,
+          bgEnabled: bgEnabled,
+          bgColor: bgColor,
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          rotation: 0,
+          scale: 1,
+          originalFontSize: fontSize
+        };
+        elements.push(newEl);
+      }
+      textModal.style.display = 'none';
+      modalTextInput.value = "";
+      modalFontSizeInput.value = "50";
+      modalTextColorInput.value = "#ffffff";
+      modalStrokeColorInput.value = "#000000";
+      modalEnableBgCheckbox.checked = false;
+      modalBgColorContainer.style.display = 'none';
+      modalEnableStroke.checked = false;
+      modalEnableStroke.dispatchEvent(new Event('change'));
+      redrawCanvas();
+    });
+    
+    function isPointInElement(x, y, el) {
+      const dx = x - el.x, dy = y - el.y;
+      const cos = Math.cos(-el.rotation), sin = Math.sin(-el.rotation);
+      const rx = dx * cos - dy * sin, ry = dx * sin + dy * cos;
+      if (el.type === 'image') {
+        return (Math.abs(rx) <= el.width / 2 + 10 && Math.abs(ry) <= el.height / 2 + 10);
+      } else if (el.type === 'text') {
+        ctx.font = getCanvasFont(el);
+        const maxWidth = canvas.width * 0.9;
+        const lines = getWrappedLines(el, maxWidth);
+        const lineHeight = el.fontSize * 1.2;
+        const totalHeight = lines.length * lineHeight;
+        let maxLineWidth = 0;
+        lines.forEach(line => {
+          let w = ctx.measureText(line).width;
+          if (w > maxLineWidth) maxLineWidth = w;
+        });
+        return (Math.abs(rx) <= maxLineWidth / 2 && Math.abs(ry) <= totalHeight / 2);
+      }
+      return false;
+    }
+    
+    canvas.addEventListener('mousedown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+      const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+      let found = false;
+      for (let i = elements.length - 1; i >= 0; i--) {
+        const handle = getTransformHandle(elements[i]);
+        let threshold = 30;
+        if (distance(x, y, handle.x, handle.y) <= threshold) {
+          selectedElement = elements[i];
+          draggingTransform = true;
+          const center = { x: selectedElement.x, y: selectedElement.y };
+          const dxInit = x - center.x, dyInit = y - center.y;
+          transformInitial.initialVector = { x: dxInit, y: dyInit };
+          transformInitial.initialDistance = Math.sqrt(dxInit * dxInit + dyInit * dyInit);
+          transformInitial.initialAngle = Math.atan2(dyInit, dxInit);
+          transformInitial.initialScale = selectedElement.scale;
+          transformInitial.initialRotation = selectedElement.rotation;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        for (let i = elements.length - 1; i >= 0; i--) {
+          if (isPointInElement(x, y, elements[i])) {
+            selectedElement = elements[i];
+            draggingMove = true;
+            dragOffset.x = x - selectedElement.x;
+            dragOffset.y = y - selectedElement.y;
+            found = true;
+            break;
+          }
+        }
+      }
+      if (!found) { selectedElement = null; }
+      redrawCanvas();
+    });
+    
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+      const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+      if (draggingTransform && selectedElement) {
+        const center = { x: selectedElement.x, y: selectedElement.y };
+        const dxNew = x - center.x, dyNew = y - center.y;
+        const newDistance = Math.sqrt(dxNew * dxNew + dyNew * dyNew);
+        const newAngle = Math.atan2(dyNew, dxNew);
+        const scaleFactor = newDistance / transformInitial.initialDistance;
+        selectedElement.scale = transformInitial.initialScale * scaleFactor;
+        if (selectedElement.type === 'text') {
+          selectedElement.fontSize = selectedElement.originalFontSize * selectedElement.scale;
+        } else {
+          selectedElement.width = selectedElement.originalWidth * selectedElement.scale;
+          selectedElement.height = selectedElement.originalHeight * selectedElement.scale;
+        }
+        selectedElement.rotation = transformInitial.initialRotation + (newAngle - transformInitial.initialAngle);
+        redrawCanvas();
+      } else if (draggingMove && selectedElement) {
+        selectedElement.x = x - dragOffset.x;
+        selectedElement.y = y - dragOffset.y;
+        redrawCanvas();
+      }
+    });
+    
+    canvas.addEventListener('mouseup', () => { draggingTransform = false; draggingMove = false; });
+    canvas.addEventListener('mouseleave', () => { draggingTransform = false; draggingMove = false; });
+    
+    canvas.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+      const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+      touchStartTime = Date.now();
+      touchStartX = x;
+      touchStartY = y;
+      
+      let found = false;
+      for (let i = elements.length - 1; i >= 0; i--) {
+        const handle = getTransformHandle(elements[i]);
+        let threshold = 30;
+        if (distance(x, y, handle.x, handle.y) <= threshold) {
+          selectedElement = elements[i];
+          draggingTransform = true;
+          const center = { x: selectedElement.x, y: selectedElement.y };
+          const dxInit = x - center.x, dyInit = y - center.y;
+          transformInitial.initialVector = { x: dxInit, y: dyInit };
+          transformInitial.initialDistance = Math.sqrt(dxInit * dxInit + dyInit * dyInit);
+          transformInitial.initialAngle = Math.atan2(dyInit, dxInit);
+          transformInitial.initialScale = selectedElement.scale;
+          transformInitial.initialRotation = selectedElement.rotation;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        for (let i = elements.length - 1; i >= 0; i--) {
+          if (isPointInElement(x, y, elements[i])) {
+            selectedElement = elements[i];
+            draggingMove = true;
+            dragOffset.x = x - selectedElement.x;
+            dragOffset.y = y - selectedElement.y;
+            found = true;
+            break;
+          }
+        }
+      }
+      if (!found) { selectedElement = null; }
+      redrawCanvas();
+    }, { passive: false });
+    
+    canvas.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+      const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+      if (draggingTransform && selectedElement) {
+        const center = { x: selectedElement.x, y: selectedElement.y };
+        const dxNew = x - center.x, dyNew = y - center.y;
+        const newDistance = Math.sqrt(dxNew * dxNew + dyNew * dyNew);
+        const newAngle = Math.atan2(dyNew, dxNew);
+        const scaleFactor = newDistance / transformInitial.initialDistance;
+        selectedElement.scale = transformInitial.initialScale * scaleFactor;
+        if (selectedElement.type === 'text') {
+          selectedElement.fontSize = selectedElement.originalFontSize * selectedElement.scale;
+        } else {
+          selectedElement.width = selectedElement.originalWidth * selectedElement.scale;
+          selectedElement.height = selectedElement.originalHeight * selectedElement.scale;
+        }
+        selectedElement.rotation = transformInitial.initialRotation + (newAngle - transformInitial.initialAngle);
+        redrawCanvas();
+      } else if (draggingMove && selectedElement) {
+        selectedElement.x = x - dragOffset.x;
+        selectedElement.y = y - dragOffset.y;
+        redrawCanvas();
+      }
+    }, { passive: false });
+    
+    canvas.addEventListener('touchend', function(e) {
+      const tapTime = Date.now() - touchStartTime;
+      const touch = e.changedTouches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+      const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+      const dx = x - touchStartX;
+      const dy = y - touchStartY;
+      const moved = Math.sqrt(dx * dx + dy * dy);
+      if (tapTime < 300 && moved < 10) {
+        for (let i = elements.length - 1; i >= 0; i--) {
+          if (elements[i].type === 'text' && isPointInElement(x, y, elements[i])) {
+            editingTextElement = elements[i];
+            modalTextInput.value = editingTextElement.text;
+            modalFontSelect.value = editingTextElement.font;
+            modalFontSizeInput.value = editingTextElement.fontSize;
+            modalTextColorInput.value = editingTextElement.color;
+            modalStrokeColorInput.value = editingTextElement.strokeColor || "#000000";
+            modalEnableBgCheckbox.checked = editingTextElement.bgEnabled || false;
+            modalBgColorContainer.style.display = editingTextElement.bgEnabled ? 'block' : 'none';
+            modalEnableStroke.checked = editingTextElement.outlineEnabled || false;
+            modalEnableStroke.dispatchEvent(new Event('change'));
+            textModal.style.display = 'flex';
+            break;
+          }
+        }
+      }
+      draggingTransform = false;
+      draggingMove = false;
+    }, { passive: false });
+    
+    canvas.addEventListener('touchcancel', function(e) {
+      draggingTransform = false;
+      draggingMove = false;
+    });
+    
+    function distance(x1, y1, x2, y2) {
+      return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+    }
+    
+    deleteElementButton.addEventListener('click', () => {
+      if (!selectedElement) return;
+      elements = elements.filter(el => el !== selectedElement);
+      selectedElement = null;
+      redrawCanvas();
+    });
+    
+    clearBackgroundButton.addEventListener('click', () => {
+      backgroundImage = new Image();
+      canvas.width = 500;
+      canvas.height = 400;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (overlay) overlay.style.display = 'block';
+      downloadButton.disabled = true;
+      clearBackgroundButton.disabled = true;
+    });
+    
+    downloadButton.addEventListener('click', () => {
+      const prevSelected = selectedElement;
+      selectedElement = null;
+      redrawCanvas();
+    
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const file = new File([blob], 'meme.html', { type: 'image/png' });
+          if (/Mobi|Android/i.test(navigator.userAgent)) {
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({
+                files: [file],
+                title: 'Meme',
+                text: 'Check out this meme!'
+              }).catch((error) => {
+                console.error('Error sharing:', error);
+              });
+            } else {
+              const url = URL.createObjectURL(blob);
+              window.open(url, '_blank');
+            }
+          } else {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'meme.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+          }
+        }
+        selectedElement = prevSelected;
+        redrawCanvas();
+      }, 'image/png');
+    });
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("menu-toggle").addEventListener("click", function() {
+        document.getElementById("nav-menu").classList.toggle("show");
+      });
+      const imageContainer = document.querySelector('.image-container');
+      imageContainer.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      });
+      imageContainer.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            backgroundImage = new Image();
+            backgroundImage.src = evt.target.result;
+            backgroundImage.onload = function() {
+              canvas.width = backgroundImage.naturalWidth;
+              canvas.height = backgroundImage.naturalHeight;
+              redrawCanvas();
+              if (overlay) overlay.style.display = 'none';
+              downloadButton.disabled = false;
+              clearBackgroundButton.disabled = false;
+            };
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      updateHeaderData();
+    });
+  </script>
+</body>
+
+<!-- Mirrored from shaftcoin/memes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Apr 2025 23:40:06 GMT -->
+</html>
